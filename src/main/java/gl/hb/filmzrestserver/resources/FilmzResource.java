@@ -1,7 +1,9 @@
 package gl.hb.filmzrestserver.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import gl.hb.filmzrestserver.api.Film;
 import gl.hb.filmzrestserver.api.Saying;
+import gl.hb.filmzrestserver.dao.FilmzDao;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -17,20 +19,16 @@ import java.util.concurrent.atomic.AtomicLong;
 @Path("/filmz")
 @Produces(MediaType.APPLICATION_JSON)
 public class FilmzResource {
-    private final String template;
-    private final String defaultName;
-    private final AtomicLong counter;
+    private final FilmzDao filmzDao;
 
-    public FilmzResource(String template, String defaultName) {
-        this.template = template;
-        this.defaultName = defaultName;
-        this.counter = new AtomicLong();
+    public FilmzResource(FilmzDao filmzDao) {
+        this.filmzDao = filmzDao;
     }
 
     @GET
     @Timed
-    public Saying sayHello(@QueryParam("name") Optional<String> name) {
-        final String value = String.format(template, name.orElse(defaultName));
-        return new Saying(counter.incrementAndGet(), value);
+    public Film sayHello(@QueryParam("id") Optional<Integer> id) {
+        String nameDeutsch = filmzDao.findFilmById(id.orElse(1));
+        return new Film(nameDeutsch);
     }
 }
