@@ -41,13 +41,10 @@ public class MainApplication extends Application<FilmzRestServerConfiguration> {
         //setup database:
         final DBIFactory factory = new DBIFactory();
         final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "oracle");
-        final FilmzDao dao = jdbi.onDemand(FilmzDao.class);
+        final FilmzDao filmzDao = jdbi.onDemand(FilmzDao.class);
         //sonstiges:
         logger.debug("Starting FilmzRestServer...");
-        final FilmzResource resource = new FilmzResource(
-                configuration.getTemplate(),
-                configuration.getDefaultName()
-        );
+        final FilmzResource resource = new FilmzResource(filmzDao);
         final TemplateHealthCheck healthCheck =
                 new TemplateHealthCheck(configuration.getTemplate());
         environment.healthChecks().register("template", healthCheck);
