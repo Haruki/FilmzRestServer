@@ -17,7 +17,7 @@ import java.util.Optional;
 /**
  * Created by Homer on 08.01.2017.
  */
-@Path("/filmz/{movieid}")
+@Path("/filmz")
 @Produces(MediaType.APPLICATION_JSON)
 public class FilmzResource {
 
@@ -32,15 +32,28 @@ public class FilmzResource {
 
     @GET
     @Timed
+    @Path("/{movieid}")
     public Film getFilmById(@PathParam("movieid") Optional<Integer> id) {
         logger.debug("Triggered: getFilmById.");
         return filmzDao.findFilmById(id.orElse(1));
 
     }
 
+    @PUT
+    @Timed
+    @Path("/{movieid}/seen")
+    public Film setSeen(@PathParam("movieid") Optional<Integer> id) {
+        logger.debug("Triggered: setSeen.");
+        if (id.isPresent()) {
+            filmzDao.setSeenById(id.get());
+            return filmzDao.findFilmById(id.get());
+        } else {
+            return null;
+        }
+    }
+
     @POST
     @Timed
-    @Path("/filmz")
     public void insertFilm(@BeanParam FilmzBean filmzBean) {
         logger.debug("Triggered: insertFilm.");
         this.filmzDao.insertFilm(filmzBean.imdbCode.orElse(null),
