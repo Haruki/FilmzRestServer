@@ -3,9 +3,15 @@ package gl.hb.filmzrestserver.resources;
 import com.codahale.metrics.annotation.Timed;
 import gl.hb.filmzrestserver.api.Film;
 import gl.hb.filmzrestserver.dao.FilmzDao;
+import gl.hb.filmzrestserver.dao.mapper.FilmzMapper;
+import gl.hb.filmzrestserver.resources.beans.FilmzBean;
+import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.time.LocalDate;
 import java.util.Optional;
 
 /**
@@ -14,16 +20,33 @@ import java.util.Optional;
 @Path("/filmz/{movieid}")
 @Produces(MediaType.APPLICATION_JSON)
 public class FilmzResource {
-    private final FilmzDao filmzDao;
+
+    private Logger logger = LoggerFactory.getLogger(FilmzResource.class);
+
+    private FilmzDao filmzDao;
 
     public FilmzResource(FilmzDao filmzDao) {
+        logger.debug("Instanciated: FilmzResource.");
         this.filmzDao = filmzDao;
     }
 
     @GET
     @Timed
-    public Film sayHello(@PathParam("movieid") Optional<Integer> id) {
-        String nameDeutsch = filmzDao.findFilmById(id.orElse(1));
-        return new Film(nameDeutsch);
+    public Film getFilmById(@PathParam("movieid") Optional<Integer> id) {
+        logger.debug("Triggered: getFilmById.");
+        return filmzDao.findFilmById(id.orElse(1));
+
+    }
+
+    @POST
+    @Timed
+    @Path("/filmz")
+    public void insertFilm(@BeanParam FilmzBean filmzBean) {
+        logger.debug("Triggered: insertFilm.");
+        this.filmzDao.insertFilm(filmzBean.imdbCode.orElse(null),
+                filmzBean.imdbRating.orElse(null),
+                filmzBean.nameOriginal.orElse(null),
+                filmzBean.nameDeutsch.orElse(null),
+                LocalDate.parse(filmzBean.releaseDate.orElse(null)));
     }
 }
