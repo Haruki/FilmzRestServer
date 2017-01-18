@@ -27,4 +27,7 @@ public interface FilmzDao {
 
     @SqlUpdate("update filmz set seen = 'true' where movieid = :id")
     void setSeenById(@Bind("id") Integer movieid);
+
+    @SqlUpdate("select * from filmz where imdbCode = :imdbCode")
+    Film findFilmByImdbCode(@Bind("imdbCode") String imdbCode);
 }
