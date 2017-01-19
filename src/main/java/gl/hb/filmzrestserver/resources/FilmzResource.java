@@ -39,6 +39,14 @@ public class FilmzResource {
 
     }
 
+    @GET
+    @Timed
+    @Path("/find")
+    public Film getFilmByImdbCode(@QueryParam("imdbCode") Optional<String> imdbCode) {
+        logger.debug("Triggered: getFilmByImdbCode");
+        return filmzDao.findFilmByImdbCode(imdbCode.get());
+    }
+
     @PUT
     @Timed
     @Path("/{movieid}/seen")
