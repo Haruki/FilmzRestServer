@@ -1,6 +1,7 @@
 package gl.hb.filmzrestserver.resources.beans;
 
 import javax.swing.text.html.Option;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.QueryParam;
 import java.util.Optional;
 
@@ -8,18 +9,26 @@ import java.util.Optional;
  * Created by Asterix on 13.01.2017.
  */
 public class FilmzBean {
-    @QueryParam("nameDeutsch")
+    @FormParam("nameDeutsch")
     public Optional<String> nameDeutsch;
 
-    @QueryParam("nameOriginal")
+    @FormParam("nameOriginal")
     public Optional<String> nameOriginal;
 
-    @QueryParam("imdbRating")
+    @FormParam("imdbRating")
     public Optional<Float> imdbRating;
 
-    @QueryParam("imdbCode")
+    @FormParam("imdbCode")
     public Optional<String> imdbCode;
 
-    @QueryParam("releaseDate")
+    @FormParam("releaseDate")
     public Optional<String> releaseDate;
+
+    public boolean isEmpty() {
+        return !(nameDeutsch.isPresent()
+                && nameOriginal.isPresent()
+                && imdbRating.isPresent()
+                && imdbCode.isPresent()
+                && releaseDate.isPresent());
+    }
 }
