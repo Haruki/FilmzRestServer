@@ -68,7 +68,7 @@ public class FilmzResource {
             filmzDao.setSeenById(id.get());
             return filmzDao.findFilmById(id.get());
         } else {
-            return null;
+            throw new WebApplicationException(404);
         }
     }
 
