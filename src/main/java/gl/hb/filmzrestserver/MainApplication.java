@@ -3,11 +3,18 @@ package gl.hb.filmzrestserver;
 import gl.hb.filmzrestserver.dao.FilmzDao;
 import gl.hb.filmzrestserver.metrics.TemplateHealthCheck;
 import gl.hb.filmzrestserver.resources.FilmzResource;
+import gl.hb.filmzrestserver.security.FilmzServiceAuthenticator;
+import gl.hb.filmzrestserver.security.FilmzServiceAuthorizer;
+import gl.hb.filmzrestserver.security.FilmzServiceUser;
 import io.dropwizard.Application;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.jdbi.bundles.DBIExceptionsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +56,15 @@ public class MainApplication extends Application<FilmzRestServerConfiguration> {
                 new TemplateHealthCheck(configuration.getTemplate());
         environment.healthChecks().register("template", healthCheck);
         environment.jersey().register(resource);
+        environment.jersey().register(new AuthDynamicFeature(
+                new BasicCredentialAuthFilter.Builder<FilmzServiceUser>()
+                        .setAuthenticator(new FilmzServiceAuthenticator())
+                        .setAuthorizer(new FilmzServiceAuthorizer())
+                        .setRealm("simpleauth1")
+                        .buildAuthFilter()));
+        environment.jersey().register(RolesAllowedDynamicFeature.class);
+        //If you want to use @Auth to inject a custom Principal type into your resource
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(FilmzServiceUser.class));
     }
 }
 

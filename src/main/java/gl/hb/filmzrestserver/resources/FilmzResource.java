@@ -9,6 +9,7 @@ import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.time.Instant;
@@ -21,6 +22,7 @@ import java.util.Optional;
  */
 @Path("/filmz")
 @Produces(MediaType.APPLICATION_JSON)
+@RolesAllowed("Level0")
 public class FilmzResource {
 
     private Logger logger = LoggerFactory.getLogger(FilmzResource.class);
