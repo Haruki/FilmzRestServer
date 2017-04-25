@@ -3,3 +3,7 @@
 build
 gradle
 config_homer.yml
+/bin/
+.classpath
+.project
+.settings
