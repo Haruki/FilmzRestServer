@@ -7,3 +7,4 @@ config_homer.yml
 .classpath
 .project
 .settings
+out/
