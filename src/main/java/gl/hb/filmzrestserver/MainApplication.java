@@ -51,11 +51,11 @@ public class MainApplication extends Application<FilmzRestServerConfiguration> {
         final FilmzDao filmzDao = jdbi.onDemand(FilmzDao.class);
         //sonstiges:
         logger.debug("Starting FilmzRestServer...");
-        final FilmzResource resource = new FilmzResource(filmzDao);
+        final FilmzResource filmzResource = new FilmzResource(filmzDao);
         final TemplateHealthCheck healthCheck =
                 new TemplateHealthCheck(configuration.getTemplate());
         environment.healthChecks().register("template", healthCheck);
-        environment.jersey().register(resource);
+        environment.jersey().register(filmzResource);
         environment.jersey().register(new AuthDynamicFeature(
                 new BasicCredentialAuthFilter.Builder<FilmzServiceUser>()
                         .setAuthenticator(new FilmzServiceAuthenticator())

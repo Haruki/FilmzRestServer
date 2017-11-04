@@ -9,6 +9,7 @@ import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Created by Asterix on 13.01.2017.
@@ -30,4 +31,7 @@ public interface FilmzDao {
 
     @SqlQuery("select * from filmz where imdb_code = :imdbCode")
     Film findFilmByImdbCode(@Bind("imdbCode") String imdbCode);
+
+    @SqlQuery("select * from (select f.*, row_number() over (order by movieid) as rn from (select * from filmz order by movieid) f ) where rn between :offset and :end")
+    List<Film> allFilmz(@Bind("offset") Integer offset, @Bind("end") Integer end);
 }

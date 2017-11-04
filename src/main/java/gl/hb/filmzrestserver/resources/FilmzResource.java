@@ -15,6 +15,7 @@ import javax.ws.rs.core.*;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -46,6 +47,19 @@ public class FilmzResource {
             throw new WebApplicationException(404);
         }
 
+    }
+
+    @GET
+    @Timed
+    @Path("/all")
+    public List<Film> getAllFilmz(@QueryParam("offset") Optional<Integer> offset, @QueryParam("limit") Optional<Integer> limit) {
+        logger.debug("Triggered: getAllFilmz");
+        List<Film> resultList = filmzDao.allFilmz(offset.orElse(1), offset.orElse(1) + limit.orElse(1));
+        if (resultList != null) {
+            return resultList;
+        } else {
+            throw new WebApplicationException(404);
+        }
     }
 
     @GET
