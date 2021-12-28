@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'gl.hb'
-version '0.1.0'
+version '0.1.1'
 apply plugin: 'java'
 
 sourceCompatibility = 1.8
@@ -15,12 +15,12 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
-    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'org.slf4j:slf4j-api:1.7.32'
     compile 'io.dropwizard:dropwizard-core:1.1.0'
     compile 'ru.vyarus:dropwizard-guicey:4.0.1'
 
     //compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.6.2'
-    compile 'org.apache.logging.log4j:log4j-core:2.6.2'
+    compile 'org.apache.logging.log4j:log4j-core:2.17.0'
     compile files('lib/ojdbc7.jar')
     compile files('lib/orai18n.jar')
     compile 'io.dropwizard:dropwizard-jdbi:1.1.0'

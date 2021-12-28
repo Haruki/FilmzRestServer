@@ -16,7 +16,7 @@ database:
   # the password
   password: bestfilmz
   # the JDBC URL
-  url: jdbc:oracle:thin:@10.0.1.26:1521/ORCL
+  url: jdbc:oracle:thin:@192.168.0.31:1521/XEPDB1
   # any properties specific to your JDBC driver:
   properties:
     charSet: UTF-8
