@@ -19,7 +19,8 @@ function log(obj) {
 const clearSocialDiv = () => {
   //return document.querySelector("div .mini-article");
   return document.querySelector(
-    '#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-304f99f6-0.eaRXHu > section > div:nth-child(4) > section > section > div.sc-e226b0e3-3.jJsEuz > div.sc-3a4309f8-0.fjtZsE.sc-acac9414-1.SZwsj > div > div:nth-child(3)'
+    //'#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-304f99f6-0.eaRXHu > section > div:nth-child(4) > section > section > div.sc-e226b0e3-3.jJsEuz > div.sc-3a4309f8-0.fjtZsE.sc-acac9414-1.SZwsj > div > div:nth-child(3)'
+   '.sc-e226b0e3-9.bkRdrN'
   );
 };
 
@@ -32,7 +33,7 @@ function getImdbCode() {
 }
 
 function getImdbScore() {
-  let score = document.querySelector('.sc-bde20123-1.iZlgcd').innerHTML;
+  let score = document.querySelector('.sc-bde20123-1.cMEQkK').innerHTML;
   if (typeof score != 'string') {
     return 0;
   } else {
@@ -42,7 +43,7 @@ function getImdbScore() {
 }
 
 const getNameDeutsch = () => {
-  let nameDeutsch = document.querySelector('.sc-afe43def-1.fDTGTb')
+  let nameDeutsch = document.querySelector('.hero__primary-text')
     .childNodes[0].nodeValue;
   return nameDeutsch;
 };
