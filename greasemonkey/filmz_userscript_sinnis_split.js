@@ -20,7 +20,7 @@ const clearSocialDiv = () => {
   //return document.querySelector("div .mini-article");
   return document.querySelector(
     //'#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-304f99f6-0.eaRXHu > section > div:nth-child(4) > section > section > div.sc-e226b0e3-3.jJsEuz > div.sc-3a4309f8-0.fjtZsE.sc-acac9414-1.SZwsj > div > div:nth-child(3)'
-   '.sc-e226b0e3-9.bkRdrN'
+   '.sc-92625f35-9.bvBrCg'
   );
 };
 
