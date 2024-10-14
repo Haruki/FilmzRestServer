@@ -20,7 +20,7 @@ const clearSocialDiv = () => {
   //return document.querySelector("div .mini-article");
   return document.querySelector(
     //'#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-304f99f6-0.eaRXHu > section > div:nth-child(4) > section > section > div.sc-e226b0e3-3.jJsEuz > div.sc-3a4309f8-0.fjtZsE.sc-acac9414-1.SZwsj > div > div:nth-child(3)'
-   'div.sc-37902d12-9.iPToOe'
+   '.sc-9a2a0028-9.jJMYeT'
   );
 };
 
@@ -33,7 +33,7 @@ function getImdbCode() {
 }
 
 function getImdbScore() {
-  let score = document.querySelector('.sc-eb51e184-1.ljxVSS').innerHTML;
+  let score = document.querySelector('.sc-d541859f-1.imUuxf').innerHTML;
   if (typeof score != 'string') {
     return 0;
   } else {
